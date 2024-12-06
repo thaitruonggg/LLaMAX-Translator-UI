@@ -121,6 +121,20 @@ chatbot = gr.Chatbot(height=600)
 with gr.Blocks(theme="soft", css=CSS) as demo:
     gr.Markdown(TITLE)
     with gr.Row():
+        with gr.Column(scale=4):
+            source_text = gr.Textbox(
+                label="Source Text",
+                value="LLaMAX is a language model with powerful multilingual capabilities without loss instruction-following capabilities. "+\
+                "LLaMAX supports translation between more than 100 languages, "+\
+                "surpassing the performance of similarly scaled LLMs.",
+                lines=10,
+            )
+            output_text = gr.Textbox(
+                label="Output Text",
+                lines=10,
+                show_copy_button=True,
+            )
+
         with gr.Column(scale=1):
             source_lang = gr.Textbox(
                 label="Source Lang(Auto-Detect)",
@@ -172,19 +186,6 @@ with gr.Blocks(theme="soft", css=CSS) as demo:
                     lines=8,
                 )
                 
-        with gr.Column(scale=4):
-            source_text = gr.Textbox(
-                label="Source Text",
-                value="LLaMAX is a language model with powerful multilingual capabilities without loss instruction-following capabilities. "+\
-                "LLaMAX supports translation between more than 100 languages, "+\
-                "surpassing the performance of similarly scaled LLMs.",
-                lines=10,
-            )
-            output_text = gr.Textbox(
-                label="Output Text",
-                lines=10,
-                show_copy_button=True,
-            )
     with gr.Row():
         submit = gr.Button(value="Submit")
         clear = gr.ClearButton([source_text, output_text])
