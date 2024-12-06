@@ -1,0 +1,9 @@
+accelerate
+timm
+einops
+torch
+Pillow
+transformers
+polyglot
+pyicu
+pycld2
