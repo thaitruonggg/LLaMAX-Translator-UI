@@ -7,3 +7,5 @@ transformers
 polyglot
 pyicu
 pycld2
+gradio
+spaces

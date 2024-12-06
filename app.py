@@ -10,7 +10,7 @@ HF_TOKEN = os.environ.get("HF_TOKEN", None)
 MODEL = "LLaMAX/LLaMAX3-8B-Alpaca"
 RELATIVE_MODEL="LLaMAX/LLaMAX3-8B"
 
-TITLE = "<h1><center>LLaMAX3-Translator</center></h1>"
+TITLE = "<h1><center>LLaMAX Translator</center></h1>"
 
 
 model = AutoModelForCausalLM.from_pretrained(
@@ -84,10 +84,12 @@ CSS = """
         display: block;
         height: 10vh;
         align-content: center;
+        font-family: Arial, Helvetica, sans-serif;
     }
     footer {
         visibility: hidden;
     }
+    font-family: Arial, Helvetica, sans-serif;
 """
 
 LICENSE = """
@@ -126,14 +128,14 @@ with gr.Blocks(theme="soft", css=CSS) as demo:
             )
             target_lang = gr.Dropdown(
                 label="Target Lang",
-                value="Spanish",
+                value="Vietnamese",
                 choices=LANG_LIST,
             )
             max_length = gr.Slider(
                 label="Max Length",
                 minimum=512,
                 maximum=8192,
-                value=4096,
+                value=4000,
                 step=8,
             )
             temperature = gr.Slider(
@@ -144,18 +146,18 @@ with gr.Blocks(theme="soft", css=CSS) as demo:
                 step=0.1,
             )
             top_p = gr.Slider(
+                label="top_p",
                 minimum=0.0,
                 maximum=1.0,
                 step=0.1,
                 value=1.0,
-                label="top_p",
             )
             rp = gr.Slider(
+                label="Repetition penalty",
                 minimum=0.0,
                 maximum=2.0,
                 step=0.1,
                 value=1.2,
-                label="Repetition penalty",
             )
             with gr.Accordion("Advanced Options", open=False):
                 inst = gr.Textbox(
