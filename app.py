@@ -182,8 +182,17 @@ with gr.Blocks(theme="soft", css=CSS) as demo:
                 )
                 prompt = gr.Textbox(
                     label="Prompt",
+                    # Prompt 1
+                    #value="""Below is an instruction that describes a task, paired with an input that provides further context.
+#Write a response that appropriately completes the request.
+### Instruction:
+#{instruction}
+### Input:
+#{query}
+### Response:""",#
+                    # Prompt 2
                     value="""Below is an instruction that describes a task, paired with an input that provides further context.
-Write a response that appropriately completes the request.
+Write a response that ensuring accuracy and maintaining the tone and style of the original text.
 ### Instruction:
 {instruction}
 ### Input:
