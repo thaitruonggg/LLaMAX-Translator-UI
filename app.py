@@ -191,7 +191,7 @@ with gr.Blocks(theme="soft", css=CSS) as demo:
         clear = gr.ClearButton([source_text, output_text])
     gr.Markdown(LICENSE)
     
-    source_text.change(lang_detector, source_text, source_lang)
+    #source_text.change(lang_detector, source_text, source_lang)
     submit.click(fn=translate, inputs=[source_text, source_lang, target_lang, inst, prompt, max_length, temperature, top_p, rp], outputs=[output_text])
 
 
