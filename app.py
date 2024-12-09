@@ -147,7 +147,7 @@ with gr.Blocks(theme="soft", css=CSS) as demo:
                 choices=LANG_LIST,
             )
             max_length = gr.Slider(
-                label="Max Length",
+                label="Độ dài tối đa",
                 minimum=512,
                 maximum=8192,
                 value=4000,
@@ -169,7 +169,7 @@ with gr.Blocks(theme="soft", css=CSS) as demo:
             )
             rp = gr.Slider(
                 label="Repetition penalty",
-                minimum=0.0,
+                minimum=1.0,
                 maximum=2.0,
                 step=0.1,
                 value=1.2,
