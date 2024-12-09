@@ -137,8 +137,9 @@ with gr.Blocks(theme="soft", css=CSS) as demo:
 
         with gr.Column(scale=1):
             source_lang = gr.Textbox(
-                label="Source Lang(Auto-Detect)",
-                value="English",
+                label="Source Lang",
+                value="Vietnamese",
+                choices=LANG_LIST,
             )
             target_lang = gr.Dropdown(
                 label="Target Lang",
