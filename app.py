@@ -123,26 +123,26 @@ with gr.Blocks(theme="soft", css=CSS) as demo:
     with gr.Row():
         with gr.Column(scale=4):
             source_text = gr.Textbox(
-                label="Source Text",
+                label="Văn bản gốc",
                 value="LLaMAX is a language model with powerful multilingual capabilities without loss instruction-following capabilities. "+\
                 "LLaMAX supports translation between more than 100 languages, "+\
                 "surpassing the performance of similarly scaled LLMs.",
                 lines=10,
             )
             output_text = gr.Textbox(
-                label="Output Text",
+                label="Văn bản đã được dịch",
                 lines=10,
                 show_copy_button=True,
             )
 
         with gr.Column(scale=1):
             source_lang = gr.Dropdown(
-                label="Source Lang",
+                label="Ngôn ngữ nguồn",
                 value="English",
                 choices=LANG_LIST,
             )
             target_lang = gr.Dropdown(
-                label="Target Lang",
+                label="Ngôn ngữ đích",
                 value="Vietnamese",
                 choices=LANG_LIST,
             )
@@ -174,7 +174,7 @@ with gr.Blocks(theme="soft", css=CSS) as demo:
                 step=0.1,
                 value=1.2,
             )
-            with gr.Accordion("Advanced Options", open=False):
+            with gr.Accordion("Tùy chọn nâng cao", open=False):
                 inst = gr.Textbox(
                     label="Instruction",
                     value="Translate the following sentences from {src_language} to {trg_language}.",
