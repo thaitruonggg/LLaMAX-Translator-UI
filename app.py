@@ -5,6 +5,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import os
 import re
 from polyglot.detect import Detector
+from nltk.translate.bleu_score import sentence_bleu
 
 HF_TOKEN = os.environ.get("HF_TOKEN", None)
 MODEL = "LLaMAX/LLaMAX3-8B-Alpaca"
@@ -45,6 +46,12 @@ def Prompt_template(inst, prompt, query, src_language, trg_language):
 # Unfinished
 def chunk_text():
     pass
+
+# Function to calculate BLEU score
+def calculate_bleu_score(candidate: str, references: list):
+    candidate_tokens = candidate.split()  # Tokenizing the candidate output
+    bleu_score = sentence_bleu(references, candidate_tokens)  # Calculating BLEU score
+    return bleu_score
     
 @spaces.GPU(duration=60)
 def translate(
@@ -76,7 +83,17 @@ def translate(
     
     resp = tokenizer.decode(outputs[0], skip_special_tokens=True, clean_up_tokenization_spaces=False)
     
-    yield resp[len(prompt):]
+    #yield resp[len(prompt):]
+    # Calculate BLEU score
+    references = [
+        'this is a dog'.split(),
+        'it is dog'.split(),
+        'dog it is'.split(),
+        'a dog, it is'.split() 
+    ]
+    bleu_score = calculate_bleu_score(resp[len(prompt):], references)  # Calculate BLEU score
+
+    yield resp[len(prompt):], bleu_score
 
 CSS = """
     h1 {
@@ -133,6 +150,12 @@ with gr.Blocks(theme="soft", css=CSS) as demo:
                 label="Văn bản đã được dịch",
                 lines=10,
                 show_copy_button=True,
+            )
+
+            bleu_score_output = gr.Textbox(  # New holder area for BLEU score
+                label="BLEU Score",
+                lines=10,
+                interactive=False,
             )
 
         with gr.Column(scale=1):
@@ -207,8 +230,8 @@ Write a response that ensuring accuracy and maintaining the tone and style of th
     gr.Markdown(LICENSE)
     
     #source_text.change(lang_detector, source_text, source_lang)
-    submit.click(fn=translate, inputs=[source_text, source_lang, target_lang, inst, prompt, max_length, temperature, top_p, rp], outputs=[output_text])
-
+    #submit.click(fn=translate, inputs=[source_text, source_lang, target_lang, inst, prompt, max_length, temperature, top_p, rp], outputs=[output_text])
+    submit.click(fn=translate, inputs=[source_text, source_lang, target_lang, inst, prompt, max_length, temperature, top_p, rp], outputs=[output_text, bleu_score_output])
 
 if __name__ == "__main__":
     demo.launch()
