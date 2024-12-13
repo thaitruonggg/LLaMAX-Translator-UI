@@ -85,12 +85,16 @@ def translate(
     
     #yield resp[len(prompt):]
     # Calculate BLEU score
+    '''
     references = [
         'this is a dog'.split(),
         'it is dog'.split(),
         'dog it is'.split(),
         'a dog, it is'.split() 
     ]
+    bleu_score = calculate_bleu_score(resp[len(prompt):], references)  # Calculate BLEU score
+    '''
+    references = [resp[len(prompt):].split()]  # Use the generated response as the reference
     bleu_score = calculate_bleu_score(resp[len(prompt):], references)  # Calculate BLEU score
 
     yield resp[len(prompt):], bleu_score
