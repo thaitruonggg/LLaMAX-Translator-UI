@@ -13,7 +13,6 @@ RELATIVE_MODEL="LLaMAX/LLaMAX3-8B"
 
 TITLE = "<h1><center>LLaMAX Translator</center></h1>"
 
-
 model = AutoModelForCausalLM.from_pretrained(
         MODEL,
         torch_dtype=torch.float16,
