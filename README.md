@@ -13,7 +13,6 @@
 - pycld2
 - gradio
 - spaces
-## INSTRUCTION
 
 
 
