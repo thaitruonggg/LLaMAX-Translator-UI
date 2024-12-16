@@ -24,7 +24,7 @@ tokenizer = AutoTokenizer.from_pretrained(MODEL)
 def lang_detector(text):
     min_chars = 5
     if len(text) < min_chars:
-        return "Input text too short"
+        return "Văn bản đầu vào quá ngắn"
     try:
         detector = Detector(text).language
         lang_info = str(detector)
@@ -49,8 +49,8 @@ def chunk_text():
 
 # Function to calculate BLEU score
 def calculate_bleu_score(candidate: str, references: list):
-    candidate_tokens = candidate.split()  # Tokenizing the candidate output
-    bleu_score = sentence_bleu(references, candidate_tokens)  # Calculating BLEU score
+    candidate_tokens = candidate.split()  
+    bleu_score = sentence_bleu(references, candidate_tokens) 
     return bleu_score
     
 @spaces.GPU(duration=60)
@@ -85,17 +85,9 @@ def translate(
     
     #yield resp[len(prompt):]
     # Calculate BLEU score
-    '''
-    references = [
-        'this is a dog'.split(),
-        'it is dog'.split(),
-        'dog it is'.split(),
-        'a dog, it is'.split() 
-    ]
-    bleu_score = calculate_bleu_score(resp[len(prompt):], references)  # Calculate BLEU score
-    '''
-    references = [resp[len(prompt):].split()]  # Use the generated response as the reference
-    bleu_score = calculate_bleu_score(resp[len(prompt):], references)  # Calculate BLEU score
+
+    references = [resp[len(prompt):].split()]  
+    bleu_score = calculate_bleu_score(resp[len(prompt):], references) 
 
     yield resp[len(prompt):], bleu_score
 
@@ -181,7 +173,7 @@ with gr.Blocks(theme="soft", css=CSS) as demo:
                 step=8,
             )
             temperature = gr.Slider(
-                label="Temperature",
+                label="Tính sáng tạo",
                 minimum=0,
                 maximum=1,
                 value=0.3,
